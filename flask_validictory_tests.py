@@ -1,4 +1,3 @@
-import os
 import unittest
 
 from flask import Flask, json
@@ -7,7 +6,6 @@ from flask.ext.validictory import Validictory, expects_json
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['JSONSCHEMA_DIR'] = os.path.join(app.root_path, 'schemas')
 
 validictory = Validictory()
 validictory.init_app(app)

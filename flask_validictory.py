@@ -20,9 +20,9 @@ __all__ = ['Validictory']
 
 from functools import wraps
 
-from validictory import validate, SchemaError, FieldValidationError
+from validictory import validate, SchemaError
 from werkzeug.exceptions import BadRequest, abort
-from flask import current_app, request
+from flask import request
 
 
 class Validictory(object):
@@ -35,20 +35,6 @@ class Validictory(object):
 
 
 def expects_json(schema):
-    """
-        If you decorate a view with this, it will ensure that the request has been
-        submitted as a json before calling the actual view.  If this call fails
-        it calls the :attr:`Validictory.validation_error` callback. An example::
-
-            @app.route('/post')
-            @expects_json(schema)
-            def post():
-                ...
-
-        :param func: The view function to decorate.
-        :type func: function
-    """
-
     def wrapper(func):
         @wraps(func)
         def decorated_view(*args, **kwargs):
