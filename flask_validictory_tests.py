@@ -1,14 +1,11 @@
 import unittest
 
 from flask import Flask, json
-from validictory import ValidationError
-from flask.ext.validictory import Validictory, expects_json
+from validictory import FieldValidationError
+from flask.ext.validictory import expects_json
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-
-validictory = Validictory()
-validictory.init_app(app)
 
 test1_schema = {
     'type': 'object',
@@ -44,14 +41,13 @@ def test1():
     return 'success'
 
 
-
 @app.route('/test2', methods=['POST'])
 @expects_json(test2_schema)
 def test2():
     return 'success'
 
 
-@app.errorhandler(ValidationError)
+@app.errorhandler(FieldValidationError)
 def on_error(e):
     return 'error'
 
